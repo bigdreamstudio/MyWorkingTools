@@ -30,24 +30,52 @@ def list22array(filepath):
 	f2.close()
 	return list2array
 	
-#选择除二维数组中，对应项组成的列中含有name的每一行的此项,生成新的二维数组
-def select_right_columns(as_list2array , name):
+"""
+#选择需要的列生成新的二维数组
+def select_right_items(trans_array):
+	sr_list2array = zip(*trans_array)
+	sr_rows = len(sr_list2array)
+	items_right_rows = []
+	sr_result_list = []
+	right_items = [u'#' ,u'主题' ,u'指派给' ,u'计划完成日期']
+	r_items = zip(right_items)
+	it_rows = len(right_items)	
+	
+	for i_row in xrange(it_rows):
+		for row in xrange(sr_rows):
+			if trans_array[row][0] == r_items[i_row][0]:
+				items_right_rows.append(trans_array[row])
+
+	sr_result_list = zip(*items_right_rows)
+	return sr_result_list
+"""
+
+#选择二维数组中，含有值为columns_name的每一行，生成到新的二维数组
+def select_right_columns(as_list2array , columns_name):
 	s_list2array = as_list2array
 	s_rows = len(s_list2array)
 	#s_columns = len(s_list2array[0])
 	all_right_rows = []
 	s_result_list = []
 	#先记录所有符合的行号，最后再统一处理，否则出现list index out of range错误
-	for row in xrange(s_rows):
-		if as_list2array[row][2] == name.encode('utf-8'):
-			all_right_rows.append(row)
+	"""
+	i = 0
+	while i < s_rows:
+		if as_list2array[i][2] == columns_name.encode('utf-8'):
+			all_right_rows.append(i)
+		i = i+1
+	"""
+	for j in xrange(s_rows):
+		if as_list2array[j][2] == columns_name.encode('utf-8'):
+			all_right_rows.append(j)
+	
 	for row in xrange(len(all_right_rows)):
 		r = all_right_rows[row]
 		s_result_list.append(as_list2array[r])
 	result_list = s_result_list
 	return result_list
 
-#转成特定打印格式的数组
+#将按特定要求生成的数组，转成wiki打印格式，存入新的数组中
 def addstyle(list2array):
 	a_list2array = list2array
 	a_rows = len(list2array)
@@ -61,7 +89,7 @@ def addstyle(list2array):
 	i = 0
 	m = '|Why|\\2=.周计划任务，完成项目阶段工作|\n|When|\\2=.任务执行日期：'
 	n = '|How much|\\2=.预计1小时完成任务|\n|How|\\2=.略|\n'
-	e = ['|任务编号', '|主题(What)', '|', '计划完成日期|\n']
+	e = ['|_.任务编号', '|_.主题(What)', '|', '_.计划完成日期|\n']
 	m_list2array = []
 	m_list2array.append(e)
 	while i < a_rows:
@@ -85,7 +113,7 @@ def addstyle(list2array):
 	as_list2array = m_list2array
 	return as_list2array
 	
-#将二维数组写回文件
+#将二维数组写到特定的文件里
 def write_to_file(as_list2array , file_path):
 	f = open(file_path,'wb')
 	#f.write(as_list2array.encode('utf'))
@@ -94,9 +122,13 @@ def write_to_file(as_list2array , file_path):
 	#f.writelines('|'.join(c for c in row) for row in as_list2array)
 	f.close()
 
+#整合所有的方法，完成csv文件内容转成wiki格式内容，分别生成文本文件
 def run_csv2wiki():
 
+	#thefilepath = u'D:\\Python26\\bigdreamstudio\\export.csv'
 	open_path = u'D:\\Python26\\bigdreamstudio\\wsp.csv'
+	#write_to_file(select_right_items(list22array(thefilepath)) , open_path)
+
 	read_result = list22array(open_path)
 	all_name = [u'韩 雨',u'吴 勇庆',u'周 光甫',u'钱 文豪',u'惠 卿',u'吴 章强',u'薛 富玮',u'张 雪培',u'汪 唐明',u'及 松浩',u'杨 健',u'张 伟豪']
 	all_name_rows = len(all_name)
@@ -107,6 +139,6 @@ def run_csv2wiki():
 		if  array_len >= 1 :
 			write_to_file(addstyle(select_rights) , save_path)
 	
-	
+#程序执行的入口	
 if __name__=="__main__":
 	run_csv2wiki()
