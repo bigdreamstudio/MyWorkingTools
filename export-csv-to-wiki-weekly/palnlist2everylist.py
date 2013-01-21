@@ -12,7 +12,7 @@ import os,sys,re,string
 
 
 #读取文件内容，生成二维数组
-def list22array(filepath):
+def file22array(filepath):
 	f1 = open(filepath,'rb')
 	t = f1.readlines()
 	total_rows = len(t)
@@ -76,7 +76,7 @@ def select_right_columns(as_list2array , columns_name):
 	return result_list
 
 #将按特定要求生成的数组，转成wiki打印格式，存入新的数组中
-def addstyle(list2array):
+def add_style(list2array):
 	a_list2array = list2array
 	a_rows = len(list2array)
 	for row in xrange(a_rows):
@@ -114,7 +114,7 @@ def addstyle(list2array):
 	return as_list2array
 	
 #将二维数组写到特定的文件里
-def write_to_file(as_list2array , file_path):
+def write2files(as_list2array , file_path):
 	f = open(file_path,'wb')
 	#f.write(as_list2array.encode('utf'))
 	f.writelines(''.join(str(v) for v in row) for row in as_list2array)
@@ -123,13 +123,13 @@ def write_to_file(as_list2array , file_path):
 	f.close()
 
 #整合所有的方法，完成csv文件内容转成wiki格式内容，分别生成文本文件
-def run_csv2wiki():
+def palns2everywiki():
 
 	#thefilepath = u'D:\\Python26\\bigdreamstudio\\export.csv'
 	open_path = u'D:\\Python26\\bigdreamstudio\\wsp.csv'
-	#write_to_file(select_right_items(list22array(thefilepath)) , open_path)
+	#write2files(select_right_items(file22array(thefilepath)) , open_path)
 
-	read_result = list22array(open_path)
+	read_result = file22array(open_path)
 	all_name = [u'韩 雨',u'吴 勇庆',u'周 光甫',u'钱 文豪',u'惠 卿',u'吴 章强',u'薛 富玮',u'张 雪培',u'汪 唐明',u'及 松浩',u'杨 健',u'张 伟豪']
 	all_name_rows = len(all_name)
 	for row in xrange(all_name_rows):
@@ -137,8 +137,8 @@ def run_csv2wiki():
 		select_rights = select_right_columns(read_result , all_name[row])
 		array_len = len(select_rights)
 		if  array_len >= 1 :
-			write_to_file(addstyle(select_rights) , save_path)
+			write2files(add_style(select_rights) , save_path)
 	
 #程序执行的入口	
 if __name__=="__main__":
-	run_csv2wiki()
+	palns2everywiki()
