@@ -134,7 +134,7 @@ class FToCW(unittest.TestCase):
 			# ERROR: Caught exception [ReferenceError: selectLocator is not defined]
 			driver.find_element_by_id(projectId + "_ctl00_toolBarTbl_RightRptControls_ctl00_ctl00_diidIOSaveItem").click()
 			
-			printRow = "完成第" + str(row+1) + "个反馈..." + \n
+			printRow = "完成第" + str(row+1) + "个反馈..." + "\n"
 			print printRow.decode("utf-8")
 			
 		pString = "恭喜你！共发布成功" + str(row+1) + "个反馈！"
