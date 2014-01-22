@@ -126,13 +126,16 @@ class FToCW(unittest.TestCase):
 			# ERROR: Caught exception [ReferenceError: selectLocator is not defined]
 			driver.find_element_by_id(projectId + "_ctl00_ctl04_ctl04_ctl00_ctl00_ctl04_ctl00_ctl00_TextField").send_keys(fAccessPath)
 			driver.find_element_by_id(projectId + "_ctl00_ctl04_ctl05_ctl00_ctl00_ctl04_ctl00_ctl00_TextField").clear()
-			driver.find_element_by_id(projectId + "_ctl00_ctl04_ctl05_ctl00_ctl00_ctl04_ctl00_ctl00_TextField").send_keys(fDescription)
+			driver.find_element_by_id(projectId + "_ctl00_ctl04_ctl05_ctl00_ctl00_ctl04_ctl00_ctl00_TextField").send_keys(u"如题。请" + fLiability + u"关注！" + fDescription)
 			driver.find_element_by_id(projectId + "_ctl00_ctl04_ctl06_ctl00_ctl00_ctl04_ctl00_ctl00_TextField").send_keys(fAttachingTask)
 			# ERROR: Caught exception [ReferenceError: selectLocator is not defined]
 			driver.find_element_by_id(projectId + "_ctl00_ctl04_ctl10_ctl00_ctl00_ctl04_ctl00_ctl00_TextField").clear()
 			driver.find_element_by_id(projectId + "_ctl00_ctl04_ctl10_ctl00_ctl00_ctl04_ctl00_ctl00_TextField").send_keys(fComment)
 			# ERROR: Caught exception [ReferenceError: selectLocator is not defined]
 			driver.find_element_by_id(projectId + "_ctl00_toolBarTbl_RightRptControls_ctl00_ctl00_diidIOSaveItem").click()
+			
+			printRow = "完成第" + str(row+1) + "个反馈..." + \n
+			print printRow.decode("utf-8")
 			
 		pString = "恭喜你！共发布成功" + str(row+1) + "个反馈！"
 		print pString.decode("utf-8")
